@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .message-box {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .sender-icon {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user-icon {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .chatbot-icon {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .message-text {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chatbot</h1>
+    <form action="/" method="POST">
+        <input type="text" name="message" placeholder="Enter your message">
+        <input type="submit" value="Submit">
+    </form>
+    {% if user_input %}
+        <div class="message-box">
+            <div class="sender-icon user-icon">User</div>
+            <p class="message-text">User Input: {{ user_input }}</p>
+        </div>
+    {% endif %}
+    {% if response_text %}
+        <div class="message-box">
+            <div class="sender-icon chatbot-icon">Chatbot</div>
+            <p class="message-text">Chatbot Response: {{ response_text }}</p>
+        </div>
+    {% endif %}
+    <div id="messages-container">
+        {% for message in messages %}
+            <div class="message-box">
+                <div class="sender-icon {{ message['sender'] }}-icon">{{ message['sender'] }}</div>
+                <p class="message-text">{{ message['text'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        // Scroll to the bottom of the messages container
+        var messagesContainer = document.getElementById("messages-container");
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    </script>
+</body>
+</html>
